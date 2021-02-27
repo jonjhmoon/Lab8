@@ -21,14 +21,13 @@ describe('Party Horn Tests', () => {
     })
   })
 
-  // it('Changing audio', () => { 
-  //   cy.get('#volume-slider').invoke('val', 33).trigger('input')
-  //   cy.get('#horn-sound')
-  //   .then(($el) => {
-  //       // not working needs correct id i think
-  //       expect($el).to.have.prop('#horn-sound', .33)
-  //   })
-  // })
+  it('Changing audio', () => { 
+    cy.get('#volume-slider').invoke('val', 33).trigger('input')
+    cy.get('#horn-sound')
+    .then(($el) => {
+        expect($el).to.have.prop('volume', .33)
+    })
+  })
 
   it('Sound and image changes for party horn radio button', () => { 
     cy.get('#radio-party-horn').invoke('click')
@@ -86,6 +85,9 @@ describe('Party Horn Tests', () => {
 
   it('Error is shown with invalid input', () => { 
     cy.get('#volume-number').clear().type('-1')
-    cy.get('input:invalid').should('have.length', 1)
+    cy.get(':invalid')
+    .then(($el) => {
+      expect($el).to.exist;
+    })
   })
 });
